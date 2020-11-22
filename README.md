@@ -22,7 +22,6 @@ Extract foods (supplements) from [Baby Tracker](https://nighp.com/babytracker/) 
 The [Run commands](#commands) and source reference the following environment variables:
 * `SHEET_ID` - The Google Sheet to *override* with the exported foods. A sheet id can be found in the sheet's url https://docs.google.com/spreadsheets/d/[SHEET_ID]/
 * `EXPORT_PATH` - Path to temporarily save a copy of the BabyTracker backup.
-* `CSV_PATH` - Path to temporarily save a CSV of the foods from BabyTracker.
 
 The [Run commands](#commands) load these environment variables from `.env`, which is not included with the project source. The user must configure their own `.env` with the forementioned environment variables.
 
@@ -30,7 +29,6 @@ Here is an example `.env`:
 ```
 export SHEET_ID=abc123
 export EXPORT_PATH=data
-export CSV_PATH=data/foods.csv
 ```
 
 ## Run
@@ -42,15 +40,13 @@ $ ls -dt ~/Library/Mobile\ Documents/iCloud\~com\~nighp\~babytracker/Documents/b
 head -1 | \
 xargs -I{} cp {} ./babytracker.zip && \
 unzip -o babytracker.zip -d $EXPORT_PATH
-$ echo 'Food' > $CSV_PATH && sqlite3 data/EasyLog.db 'select Name from OtherFeedSelection' | sed -r 's/, (and )?/\n/g' | sort | uniq >> $CSV_PATH
 $ ./extract_foods.py
 ```
 
 ### Steps
 1. Load environment variables
 2. Copy and unzip latest Baby Tracker backup
-3. Query food (supplements) from Baby Tracker backup and save to CSV
-4. Upload CSV to existing Google Sheet
+4. Query and upload foods to existing Google Sheet
 
 ## References
 * [Access Nighp Baby Tracker Data from Latest Backup on a Mac](https://gist.github.com/ozbe/fe5c2f692122cdc7e219ad3ec8444b85)
