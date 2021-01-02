@@ -1,15 +1,27 @@
 #!/usr/bin/env python3
 
 import csv
+import glob
 import gspread
 import io
 import os
 import sqlite3
 from functools import reduce
 from pathlib import Path
+from zipfile import ZipFile
 
-export_path = os.environ['EXPORT_PATH']
+export_path = 'data'
 sheet_id = os.environ['SHEET_ID']
+
+print('Extracting latest backup... ', end='')
+backup_path = Path.home() / 'Library/Mobile Documents/iCloud~com~nighp~babytracker/Documents/backups'
+files = backup_path.glob('*')
+latest_backup = max(files, key=os.path.getctime)
+
+with ZipFile(latest_backup, 'r') as z:
+    z.extractall(export_path)
+    
+print('done')
 
 print('Querying food... ', end='')
 db_path = Path(export_path) / "Easylog.db"
