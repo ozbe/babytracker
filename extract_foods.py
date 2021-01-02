@@ -52,4 +52,4 @@ print(f'Importing content to sheet \'{sh.title}\'... ', end='')
 gc.import_csv(sh.id, content)
 print('done')
 
-print(f'Updated \'{sh.title}\'')
+print(f'Updated \'{sh.title}\' ({sh.url})')
