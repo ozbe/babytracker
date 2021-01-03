@@ -6,12 +6,13 @@ import gspread
 import io
 import os
 import sqlite3
+import sys
 from functools import reduce
 from pathlib import Path
 from zipfile import ZipFile
 
 export_path = 'data'
-sheet_id = os.environ['SHEET_ID']
+sheet_id = sys.argv[1] if len(sys.argv) > 1 else sys.exit('Missing sheet id argument')
 
 print('Extracting latest backup... ', end='')
 backup_path = Path.home() / 'Library/Mobile Documents/iCloud~com~nighp~babytracker/Documents/backups'

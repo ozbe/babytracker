@@ -17,29 +17,16 @@ Extract foods (supplements) from [Baby Tracker](https://nighp.com/babytracker/) 
 2. Set [OAuth Client Id](https://gspread.readthedocs.io/en/latest/oauth2.html#for-end-users-using-oauth-client-id) - Must be done before the [Run commands](#commands).
 3. Authenticate user - this will happen automatically on the first run of `extract_foods.py`.
 
-### .env file
-
-The [Run commands](#commands) and source reference the following environment variables:
-* `SHEET_ID` - The Google Sheet to *override* with the exported foods. A sheet id can be found in the sheet's url https://docs.google.com/spreadsheets/d/[SHEET_ID]/
-
-The [Run commands](#commands) load these environment variables from `.env`, which is not included with the project source. The user must configure their own `.env` with the forementioned environment variables.
-
-Here is an example `.env`:
-```
-export SHEET_ID=abc123
-```
-
 ## Run
 
 ### Commands
 ```
-$ source .env
-$ ./extract_foods.py
+$ ./extract_foods.py <SHEET_ID>
 ```
 
-### Steps
-1. Load environment variables
-2. Extract Baby Tracker backup, query, and upload foods to existing Google Sheet
+### Arguments
+
+* `SHEET_ID` - The Google Sheet to *override* with the exported foods. A sheet id can be found in the sheet's url https://docs.google.com/spreadsheets/d/[SHEET_ID]/
 
 ## References
 * [Access Nighp Baby Tracker Data from Latest Backup on a Mac](https://gist.github.com/ozbe/fe5c2f692122cdc7e219ad3ec8444b85)
