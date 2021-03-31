@@ -10,10 +10,16 @@ Extract foods (supplements) from [Baby Tracker](https://nighp.com/babytracker/) 
 * You must be signed into iCloud on you Mac
 * If you want the latest data from Baby Tracker, I’d recommend you do a manual backup from the Baby Tracker app
 
+### Requirements
+
+```
+$ pip3 install -r requirements.txt
+```
+
 ### gspread
 
 [gpspread](https://github.com/burnash/gspread) is used to access Google Sheets. The user must do the following one-time setups:
-1. Run `$ pip3 install --user gspread`
+1. [Enable API Access](https://gspread.readthedocs.io/en/latest/oauth2.html#enable-api-access-for-a-project)
 2. Set [OAuth Client Id](https://gspread.readthedocs.io/en/latest/oauth2.html#for-end-users-using-oauth-client-id) - Must be done before the [Run commands](#commands).
 3. Authenticate user - this will happen automatically on the first run of `extract_foods.py`.
 
@@ -30,3 +36,18 @@ $ ./extract_foods.py <SHEET_ID>
 
 ## References
 * [Access Nighp Baby Tracker Data from Latest Backup on a Mac](https://gist.github.com/ozbe/fe5c2f692122cdc7e219ad3ec8444b85)
+
+## Troubleshooting
+
+```
+Opening sheet... done
+...
+KeyError: 'title'
+...
+```
+
+You may need to re-auth. Remove gspread auth file and run the script again:
+```
+$ rm ~/.config/gspread/authorized_user.json
+$ ./extract_foods.py <SHEET_ID>
+```
